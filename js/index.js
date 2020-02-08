@@ -1,3 +1,8 @@
+window.onload = function() {
+    this.verAutenticacion();
+    console.log('INDEX');
+}
+
 function iniciarSesion() {
     var email = document.getElementById("txtcorreoIngresar").value;
     var password = document.getElementById("txtcontraIngresar").value;

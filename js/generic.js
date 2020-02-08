@@ -20,3 +20,30 @@
               alert(err);
           })
   }
+
+  function verAutenticacion() {
+      firebase.auth().onAuthStateChanged(res => {
+          console.log(res);
+          if (res == null) {
+              console.log(res);
+              document.getElementById("itemSalir").style.display = "none";
+              document.getElementById("itemTipoLibro").style.display = "none";
+              document.getElementById("itemLibro").style.display = "none";
+              document.getElementById("itemPrestamos").style.display = "none";
+              document.getElementById("itemRegistro").style.display = "inline-block";
+
+              document.getElementById("divDatosUsu").style.visibility = "visible";
+              document.getElementById("divRedes").style.visibility = "hidden";
+          } else {
+              console.log(res);
+              document.getElementById("itemSalir").style.display = "inline-block";
+              document.getElementById("itemTipoLibro").style.display = "inline-block";
+              document.getElementById("itemLibro").style.display = "inline-block";
+              document.getElementById("itemPrestamos").style.display = "inline-block";
+              document.getElementById("itemRegistro").style.display = "none";
+
+              document.getElementById("divDatosUsu").style.visibility = "hidden";
+              document.getElementById("divRedes").style.visibility = "visible";
+          }
+      })
+  }

@@ -20,19 +20,19 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item active" id="itemRegistro">
                             <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">Registro</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="itemTipoLibro">
                             <a class="nav-link" href="tipoLibro.html">Tipo Libro</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="itemLibro">
                             <a class="nav-link" href="libro.html" tabindex="-1">Libro</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="itemPrestamos">
                             <a class="nav-link" href="misPrestamos.html" tabindex="-1">Mis Prestamos</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item" id="itemSalir">
                             <a class="nav-link" href="index.html" tabindex="-1" onclick="salir();">Salir</a>
                         </li>
                     </ul>
@@ -53,17 +53,7 @@
         <img onclick="authTwitter()" class="ml-2" height="50px" width="50px" src="img/twitter.png" />
         <img onclick="authFacebook()" class="ml-2" height="50px" width="50px" src="img/facebook.png" />
     </div>
-    <div class="row">
-        <div class="form-group col-md-6 m-auto">
-            <label>Ingrese Correo:</label>
-            <input type="email" id="txtcorreoIngresar" class="form-control" />
-            <label>Ingrese Contraseña:</label>
-            <input type="password" id="txtcontraIngresar" class="form-control" />
-            <button onclick="iniciarSesion()" class="btn btn-primary btn-block mt-4">Iniciar Sesión</button>
-            <div id="alertErrorLogueo" class="alert alert-danger" role="alert" style="display: none;">
-            </div>
-        </div>
-    </div>
+
     </div>
 
     <!-- Modal -->
@@ -104,7 +94,8 @@
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-app.js"></script>
     <script src="js/generic.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
-    <script src="js/index.js"></script>
+    <!-- <script src="js/index.js"></script> -->
+    <script src="js/libro.js"></script>
 </body>
 
 </html>
