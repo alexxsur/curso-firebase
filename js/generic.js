@@ -11,3 +11,12 @@
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+  function salir() {
+      firebase.auth().signOut()
+          .then(res => {
+              document.location.href = "index.html"
+          }).catch(err => {
+              alert(err);
+          })
+  }
