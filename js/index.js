@@ -13,9 +13,11 @@ function iniciarSesion() {
             document.location.href = "misPrestamos.html";
             // IMAGEN
             if (res.user.photoURL != null) {
+                console.log("PRUEBA1");
                 document.getElementById("imgFotoUsuario").src = res.user.photoURL;
             } else {
-                document.getElementById("imgFotoUsuario").src = "/img/noFoto.jpeg";
+                console.log("PRUEBA2");
+                document.getElementById("imgFotoUsuario").src = "img/noFoto.jpg";
             }
         }).catch(err => {
             document.getElementById("alertErrorLogueo").style.display = "block";
