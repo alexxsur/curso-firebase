@@ -47,7 +47,7 @@
 
               if (res.displayName != null) {
                   document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.displayName;
-              } else {
+              } else if (res.email != null) {
                   document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.email;
               }
           }

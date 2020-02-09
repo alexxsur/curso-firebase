@@ -1,6 +1,5 @@
 window.onload = function() {
     this.verAutenticacion();
-    console.log('INDEX');
 }
 
 function iniciarSesion() {
@@ -13,10 +12,8 @@ function iniciarSesion() {
             document.location.href = "misPrestamos.html";
             // IMAGEN
             if (res.user.photoURL != null) {
-                console.log("PRUEBA1");
                 document.getElementById("imgFotoUsuario").src = res.user.photoURL;
             } else {
-                console.log("PRUEBA2");
                 document.getElementById("imgFotoUsuario").src = "img/noFoto.jpg";
             }
         }).catch(err => {
@@ -41,6 +38,15 @@ function createUser() {
 function authGoogle() {
     const providerGoogle = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(providerGoogle).then(res => {
+        document.location.href = "misPrestamos.html";
+    }).catch(err => {
+        alert(err);
+    });
+}
+
+function authGithub() {
+    const providerGithub = new firebase.auth.GithubAuthProvider();
+    firebase.auth().signInWithPopup(providerGithub).then(res => {
         document.location.href = "misPrestamos.html";
     }).catch(err => {
         alert(err);
