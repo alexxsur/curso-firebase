@@ -52,3 +52,12 @@ function authGithub() {
         alert(err);
     });
 }
+
+function authFacebook() {
+    const providerFacebook = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().signInWithPopup(providerFacebook).then(res => {
+        document.location.href = "misPrestamos.html";
+    }).catch(err => {
+        alert(err);
+    });
+}
