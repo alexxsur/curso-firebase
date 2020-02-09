@@ -23,13 +23,22 @@ function iniciarSesion() {
 }
 
 function createUser() {
+    var displayName = document.getElementById("txtdisplayName").value;
     var email = document.getElementById("txtcorreo").value;
     var password = document.getElementById("txtcontra").value;
 
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(res => {
-            alert("Se registró correctamente");
-            document.getElementById("btnCancelar").click();
+            return res.user.updateProfile({
+                displayName: displayName
+            }).then(profile => {
+                alert("Se registró correctamente");
+                document.getElementById("btnCancelar").click();
+                firebase.auth().signOut();
+            }).catch(err => {
+                alert(err);
+            })
+
         }).catch(err => {
             alert("Ocurrio un error");
         })
