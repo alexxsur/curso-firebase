@@ -53,5 +53,14 @@ function abrirModal(id) {
         document.getElementById("lblTitulo").innerHTML = "Agregando Tipo Libro";
     } else {
         document.getElementById("lblTitulo").innerHTML = "Editando Tipo Libro";
+        firebase.firestore().collection("TipoLibro").doc(id).get().then(res => {
+            // Obtuvimos el ID
+            document.getElementById("txtIdTipoLibro").value = id;
+            // Vamos a base de datos
+            document.getElementById("txtNombre").value = res.data().nombre;
+            document.getElementById("txtDescripcion").value = res.data().descripcion;
+        }).catch(err => {
+            alert(err);
+        })
     }
 }
