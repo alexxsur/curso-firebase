@@ -1,6 +1,6 @@
 window.onload = function() {
     this.verAutenticacion();
-
+    // Solo aquellos cuyo bhabilitado es 1
     firebase.firestore().collection("TipoLibro").where("bhabilitado", "==", "1")
         .onSnapshot(res => {
             listarTipoLibros(res);
@@ -59,6 +59,18 @@ function abrirModal(id) {
             // Vamos a base de datos
             document.getElementById("txtNombre").value = res.data().nombre;
             document.getElementById("txtDescripcion").value = res.data().descripcion;
+        }).catch(err => {
+            alert(err);
+        })
+    }
+}
+
+function Eliminar(id) {
+    if (confirm("¿Deseas eliminar realmente?") == 1) {
+        firebase.firestore().collection("TipoLibro").doc(id).update({
+            bhabilitado: "0"
+        }).then(res => {
+            alert("Se eliminó correctamente");
         }).catch(err => {
             alert(err);
         })
