@@ -30,10 +30,13 @@ function listarTipoLibros(res) {
         var fila = rpta.data();
         contenido += "<tr>";
 
-        contenido += "<td>" + fila.id + "</td>";
+        contenido += "<td>" + rpta.id + "</td>";
         contenido += "<td>" + fila.nombre + "</td>";
         contenido += "<td>" + fila.descripcion + "</td>";
-        contenido += "<td></td>";
+        contenido += "<td>";
+        contenido += "<input type='button' value='Editar' onclick='abrirModal(\"" + rpta.id + "\")' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>";
+        contenido += " <input type='button' value='Eliminar' onclick='Eliminar(\"" + rpta.id + "\")' class='btn btn-danger' data-toggle='modal' data-target='#exampleModal'>";
+        contenido += "</td>";
 
         contenido += "</tr>";
 
@@ -43,4 +46,12 @@ function listarTipoLibros(res) {
 
     contenido += "</table>";
     document.getElementById("divTipoLibro").innerHTML = contenido;
+}
+
+function abrirModal(id) {
+    if (id == 0) {
+        document.getElementById("lblTitulo").innerHTML = "Agregando Tipo Libro";
+    } else {
+        document.getElementById("lblTitulo").innerHTML = "Editando Tipo Libro";
+    }
 }
