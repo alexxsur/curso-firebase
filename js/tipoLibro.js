@@ -49,6 +49,7 @@ function listarTipoLibros(res) {
 }
 
 function abrirModal(id) {
+    limpiar();
     if (id == 0) {
         document.getElementById("lblTitulo").innerHTML = "Agregando Tipo Libro";
     } else {
@@ -74,5 +75,37 @@ function Eliminar(id) {
         }).catch(err => {
             alert(err);
         })
+    }
+}
+
+function limpiar() {
+    document.getElementById("alertaErrorRegistro").style.display = "none";
+    document.getElementById("alertaErrorRegistro").innerHTML = "";
+    document.getElementById("txtIdTipoLibro").value = "";
+    document.getElementById("txtNombre").value = "";
+    document.getElementById("txtDescripcion").value = "";
+}
+
+function crearTipoLibro() {
+    var idTipoLibro = document.getElementById("txtIdTipoLibro").value;
+    var nombre = document.getElementById("txtNombre").value;
+    var descripcion = document.getElementById("txtDescripcion").value;
+
+    // Es nuevo
+    if (idTipoLibro == "") {
+        firebase.firestore().collection("TipoLibro").add({
+            nombre: nombre,
+            descripcion: descripcion,
+            bhabilitado: "1"
+        }).then(res => {
+            alert("Se agregó correctamente");
+            document.getElementById("btnCancelar").click();
+        }).catch(err => {
+            document.getElementById("alertaErrorRegistro").style.display = "block";
+            document.getElementById("alertaErrorRegistro").innerHTML = err;
+        })
+
+    } else {
+
     }
 }
