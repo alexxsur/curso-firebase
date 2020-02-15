@@ -53,21 +53,22 @@
                   document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.email;
               } */
 
-              firebase.firestore().collection("Usuarios").doc(res.uid).get().then(resultado => {
-                  var res = resultado.data();
-                  if (res.displayName != null) {
-                      document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.displayName;
-                  } else {
-                      document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.email;
-                  }
+              firebase.firestore().collection("Usuarios").doc(res.uid)
+                  .get().then(resultado => {
+                      var res = resultado.data();
+                      if (res != undefined && res.displayName != null) {
+                          document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.displayName;
+                      } else {
+                          document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.email;
+                      }
 
-                  if (res.photoURL != null) {
-                      document.getElementById("imgFotoUsuario").src = res.photoURL;
-                  } else {
-                      document.getElementById("imgFotoUsuario").src = "img/noFoto.jpg";
-                  }
+                      if (res.photoURL != null) {
+                          document.getElementById("imgFotoUsuario").src = res.photoURL;
+                      } else {
+                          document.getElementById("imgFotoUsuario").src = "img/noFoto.jpg";
+                      }
 
-              });
+                  });
 
           }
       })
