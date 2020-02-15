@@ -35,6 +35,33 @@ function createUser() {
                 alert("Se registró correctamente");
                 document.getElementById("btnCancelar").click();
                 firebase.auth().signOut();
+
+                var user = res.user;
+
+                return firebase.firestore().collection("Usuarios").doc(user.uid)
+                    .get().then(el => {
+                        var inf = el.data();
+                        // Es su primera vez
+                        if (inf == null || inf == undefined) {
+                            // Insercion
+                            return firebase.firestore().collection("Usuarios").doc(user.uid).set({
+                                nombre: "",
+                                apellido: "",
+                                email: user.email,
+                                displayName: "",
+                                photoURL: user.photoURL,
+                                provider: res.additionalUserInfo.providerId,
+                                phoneNumber: user.phoneNumber == null ? "" : user.phoneNumber,
+                                descripcion: ""
+                            }).then(respuesta => {
+                                document.location.href = "index.html";
+                            }).catch(err => {
+                                alert("Ocurrió un error al registrar en base de datos");
+                            })
+                        } else { // Ya existe
+                            document.location.href = "misPrestamos.html"
+                        }
+                    })
             }).catch(err => {
                 alert(err);
             })
