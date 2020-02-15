@@ -23,3 +23,13 @@ function cargarPerfil() {
             alert(err);
         });
 }
+
+function cambiarFoto(archivo) {
+    var file = archivo.files[0];
+    var reader = new FileReader();
+    reader.onload = function() {
+        // Dentro de aca
+        document.getElementById("imgFoto").src = reader.result;
+    }
+    reader.readAsDataURL(file);
+}
