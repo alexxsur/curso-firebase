@@ -43,41 +43,16 @@
                 </div>
             </nav>
             <!-- Foto y nombre de la persona logueada -->
-            <div id="divDatosUsu" style="visibility: hidden;" class="text-white d-flex justify-content-center align-items-center bg-dark col-md-3">
+            <div id="divDatosUsu" class="text-white d-flex justify-content-center align-items-center bg-dark col-md-3">
                 <label class="mr-2 text-white" id="lblNombreUsuario"></label>
                 <img id="imgFotoUsuario" src="img/noFoto.jpg" width="40" height="40" />
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registro de usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                </div>
-                <div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Correo:</label>
-                            <input type="email" id="txtcorreo" class="form-control" />
-                            <label>Contraseña:</label>
-                            <input type="password" id="txtcontra" class="form-control" />
-                            <div class="alert alert-danger" role="alert" style="display: none;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btnCancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="createUser();">Guardar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
+
+
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -89,7 +64,6 @@
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
     <script src="js/index.js"></script>
-    <script src="js/misPrestamos.js"></script>
 </body>
 
 </html>

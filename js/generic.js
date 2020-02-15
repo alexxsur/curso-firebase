@@ -28,6 +28,7 @@
               document.getElementById("itemTipoLibro").style.display = "none";
               document.getElementById("itemLibro").style.display = "none";
               document.getElementById("itemPrestamos").style.display = "none";
+              document.getElementById("itemMiPerfil").style.display = "none";
               document.getElementById("itemRegistro").style.display = "inline-block";
               if (document.getElementById("divRedes")) {
                   document.getElementById("divRedes").style.visibility = "visible";
@@ -38,6 +39,7 @@
               document.getElementById("itemTipoLibro").style.display = "inline-block";
               document.getElementById("itemLibro").style.display = "inline-block";
               document.getElementById("itemPrestamos").style.display = "inline-block";
+              document.getElementById("itemMiPerfil").style.display = "inline-block";
               document.getElementById("itemRegistro").style.display = "none";
 
               if (document.getElementById("divRedes")) {
@@ -45,11 +47,28 @@
               }
               document.getElementById("divDatosUsu").style.visibility = "visible";
 
-              if (res.displayName != null) {
+              /* if (res.displayName != null) {
                   document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.displayName;
               } else if (res.email != null) {
                   document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.email;
-              }
+              } */
+
+              firebase.firestore().collection("Usuarios").doc(res.uid).get().then(resultado => {
+                  var res = resultado.data();
+                  if (res.displayName != null) {
+                      document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.displayName;
+                  } else {
+                      document.getElementById("lblNombreUsuario").innerHTML = "Bienvenido " + res.email;
+                  }
+
+                  if (res.photoURL != null) {
+                      document.getElementById("imgFotoUsuario").src = res.photoURL;
+                  } else {
+                      document.getElementById("imgFotoUsuario").src = "img/noFoto.jpg";
+                  }
+
+              });
+
           }
       })
   }
