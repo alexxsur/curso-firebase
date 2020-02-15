@@ -47,7 +47,33 @@ function createUser() {
 function authGoogle() {
     const providerGoogle = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(providerGoogle).then(res => {
-        document.location.href = "misPrestamos.html";
+
+        var user = res.user;
+
+        return firebase.firestore().collection("Usuarios").doc(user.uid)
+            .get().then(el => {
+                var inf = el.data();
+                // Es su primera vez
+                if (inf == null || inf == undefined) {
+                    // Insercion
+                    return firebase.firestore().collection("Usuarios").doc(user.uid).set({
+                        nombre: res.additionalUserInfo.profile.given_name,
+                        apellido: res.additionalUserInfo.profile.family_name,
+                        email: user.email,
+                        displayName: user.displayName,
+                        photoURL: user.photoURL,
+                        provider: res.additionalUserInfo.providerId,
+                        phoneNumber: user.phoneNumber == null ? "" : user.phoneNumber
+                    }).then(respuesta => {
+                        document.location.href = "misPrestamos.html";
+                    }).catch(err => {
+                        alert("Ocurrió un error al registrar en base de datos");
+                    })
+                } else { // Ya existe
+                    document.location.href = "misPrestamos.html"
+                }
+            })
+
     }).catch(err => {
         alert(err);
     });

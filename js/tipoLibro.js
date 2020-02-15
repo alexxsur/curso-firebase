@@ -35,7 +35,7 @@ function listarTipoLibros(res) {
         contenido += "<td>" + fila.descripcion + "</td>";
         contenido += "<td>";
         contenido += "<input type='button' value='Editar' onclick='abrirModal(\"" + rpta.id + "\")' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>";
-        contenido += " <input type='button' value='Eliminar' onclick='Eliminar(\"" + rpta.id + "\")' class='btn btn-danger' data-toggle='modal' data-target='#exampleModal'>";
+        contenido += " <input type='button' value='Eliminar' onclick='Eliminar(\"" + rpta.id + "\")' class='btn btn-danger'>";
         contenido += "</td>";
 
         contenido += "</tr>";
@@ -91,6 +91,12 @@ function crearTipoLibro() {
     var nombre = document.getElementById("txtNombre").value;
     var descripcion = document.getElementById("txtDescripcion").value;
 
+    if (nombre == "") {
+        document.getElementById("alertaErrorRegistro").style.display = "block";
+        document.getElementById("alertaErrorRegistro").innerHTML = "Debe ingresar el nombre";
+        return;
+    }
+
     // Es nuevo
     if (idTipoLibro == "") {
         firebase.firestore().collection("TipoLibro").add({
@@ -106,6 +112,15 @@ function crearTipoLibro() {
         })
 
     } else {
-
+        firebase.firestore().collection("TipoLibro").doc(idTipoLibro).update({
+            nombre: nombre,
+            descripcion: descripcion,
+        }).then(res => {
+            alert("Se actualizó correctamente");
+            document.getElementById("btnCancelar").click();
+        }).catch(err => {
+            document.getElementById("alertaErrorRegistro").style.display = "block";
+            document.getElementById("alertaErrorRegistro").innerHTML = err;
+        })
     }
 }
