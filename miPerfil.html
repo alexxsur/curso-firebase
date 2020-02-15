@@ -24,7 +24,7 @@
                             <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">Registro</a>
                         </li>
                         <li class="nav-item" id="itemMiPerfil">
-                            <a class="nav-link" href="miPerfil.html">Mi perifil</a>
+                            <a class="nav-link" href="miPerfil.html">Mi perfil</a>
                         </li>
                         <li class="nav-item" id="itemTipoLibro">
                             <a class="nav-link" href="tipoLibro.html">Tipo Libro</a>
@@ -51,6 +51,41 @@
     </div>
 
 
+    <div class="col-md-8 m-auto">
+        <h2>Datos Usuario</h2>
+        <div class="form-group">
+            <label>Display Name</label>
+            <input type="text" id="txtDisplayName" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" id="txtNombre" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Apellido</label>
+            <input type="text" id="txtApellido" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Email Personal</label>
+            <input type="text" id="txtEmail" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Telefono</label>
+            <input type="text" id="txtTelefono" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Descripcion</label>
+            <input type="text" id="txtDescripcion" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Foto</label>
+            <img src="" id="imgFoto" width="150" height="150" class="d-block">
+            <input type="file" id="txtFoto" class="mt-2">
+        </div>
+        <div class="form-group">
+            <input type="button" value="Editar" onclick="EditarPerfil()" class="btn btn-primary btn-block">
+        </div>
+    </div>
 
 
 
@@ -64,6 +99,7 @@
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/miPerfil.js"></script>
 </body>
 
 </html>
