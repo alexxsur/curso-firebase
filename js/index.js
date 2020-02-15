@@ -63,7 +63,8 @@ function authGoogle() {
                         displayName: user.displayName,
                         photoURL: user.photoURL,
                         provider: res.additionalUserInfo.providerId,
-                        phoneNumber: user.phoneNumber == null ? "" : user.phoneNumber
+                        phoneNumber: user.phoneNumber == null ? "" : user.phoneNumber,
+                        descripcion: ""
                     }).then(respuesta => {
                         document.location.href = "misPrestamos.html";
                     }).catch(err => {
@@ -82,7 +83,32 @@ function authGoogle() {
 function authGithub() {
     const providerGithub = new firebase.auth.GithubAuthProvider();
     firebase.auth().signInWithPopup(providerGithub).then(res => {
-        document.location.href = "misPrestamos.html";
+        var user = res.user;
+
+        return firebase.firestore().collection("Usuarios").doc(user.uid)
+            .get().then(el => {
+                var inf = el.data();
+                // Es su primera vez
+                if (inf == null || inf == undefined) {
+                    // Insercion
+                    return firebase.firestore().collection("Usuarios").doc(user.uid).set({
+                        nombre: "",
+                        apellido: "",
+                        email: user.email,
+                        displayName: res.additionalUserInfo.username,
+                        photoURL: user.photoURL,
+                        provider: res.additionalUserInfo.providerId,
+                        phoneNumber: user.phoneNumber == null ? "" : user.phoneNumber,
+                        descripcion: ""
+                    }).then(respuesta => {
+                        document.location.href = "misPrestamos.html";
+                    }).catch(err => {
+                        alert("Ocurrió un error al registrar en base de datos");
+                    })
+                } else { // Ya existe
+                    document.location.href = "misPrestamos.html"
+                }
+            })
     }).catch(err => {
         alert(err);
     });
