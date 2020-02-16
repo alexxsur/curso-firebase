@@ -80,10 +80,10 @@
         <div class="form-group">
             <label>Foto</label>
             <img src="" id="imgFoto" width="150" height="150" class="d-block">
-            <input type="file" accept="image/*" onchange="cambiarFoto(this)" class="mt-2">
+            <input id="foto" type="file" accept="image/*" onchange="cambiarFoto(this)" class="mt-2">
         </div>
         <div class="form-group">
-            <input type="button" value="Editar" onclick="EditarPerfil()" class="btn btn-primary btn-block">
+            <input type="button" value="Editar" onclick="editarPerfil()" class="btn btn-primary btn-block">
         </div>
     </div>
 
@@ -98,6 +98,7 @@
     <script src="js/generic.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
     <script src="js/index.js"></script>
     <script src="js/miPerfil.js"></script>
 </body>
