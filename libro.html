@@ -50,13 +50,16 @@
         </div>
     </div>
     </div>
+    <input type="button" value="Agregar" onclick="abrirModal(0)" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+    <div id="divLibro">
 
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registro de usuario</h5>
+                    <h5 class="modal-title" id="lblTitulo"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -64,18 +67,30 @@
                 <div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label>Correo:</label>
-                            <input type="email" id="txtcorreo" class="form-control" />
-                            <label>Contraseña:</label>
-                            <input type="password" id="txtcontra" class="form-control" />
-                            <div class="alert alert-danger" role="alert" style="display: none;">
+                            <label>Id Libro:</label>
+                            <input type="text" readonly id="txtIdTipoLibro" class="form-control" />
+                            <label>Nombre Libro:</label>
+                            <input type="text" id="txtNombre" class="form-control" />
+                            <label>Número de páginas:</label>
+                            <input type="number" id="txtNumeroPagina" class="form-control" />
+                            <label>Cantidad total de Libros:</label>
+                            <input type="number" id="txtCantidadTotal" class="form-control" />
+                            <label>Foto libro:</label>
+                            <img id="imgFotoLibro" width="200" height="200" class="d-block" style="border:1px">
+                            <input type="file" id="fileImage" accept="image/*" onchange="subirImage(this)" />
+                            <label class="d-block">Subir Archibo en PDF</label>
+                            <iframe id="iframePreview" src="" width="200" height="200"></iframe>
+                            <input type="file" id="file" accept="application/pdf" onchange="subirArchivo(this)" />
+
+
+                            <div id="alertaErrorCrearLibro" class="alert alert-danger" role="alert" style="display: none;">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" id="btnCancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" onclick="createUser();">Guardar</button>
+                    <button type="button" class="btn btn-primary" onclick="guardarLibro();">Guardar</button>
                 </div>
             </div>
         </div>
