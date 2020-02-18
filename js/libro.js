@@ -37,20 +37,41 @@ function guardarLibro() {
             bhabilitado: 1
         }).then(res => {
             var id = res.id;
-            if (img != undefined && img != null) {
-                var refImg = firebase.storage().ref("libroImg/" + id + "/" + img.name);
-                var subImg = refImg.put(img);
-                subImg.on("state_changed", () => {}, (err) => { alert(err) }, () => {
-                    subImg.snapshot.ref.getDownloadURL().then(url => {
-                        firebase.firestore().collection("Libro").doc(id).update({
-                            photoURL: url
-                        }).then(respuesta => {
-                            alert("Se registró correctamente");
-                        }).catch(err => {
-                            alert(err);
+            if (img != undefined && img != null && file != undefined && file != null) {
+                // Imagen
+                if (img != undefined && img != null) {
+                    var refImg = firebase.storage().ref("libroImg/" + id + "/" + img.name);
+                    var subImg = refImg.put(img);
+                    subImg.on("state_changed", () => {}, (err) => { alert(err) }, () => {
+                        subImg.snapshot.ref.getDownloadURL().then(url => {
+                            firebase.firestore().collection("Libro").doc(id).update({
+                                photoURL: url
+                            }).then(respuesta => {
+                                alert("Se registró correctamente");
+                            }).catch(err => {
+                                alert(err);
+                            })
                         })
                     })
-                })
+                }
+
+                // PDF
+
+                if (file != undefined && file != null) {
+                    var refFile = firebase.storage().ref("libroFile/" + id + "/" + file.name);
+                    var subFile = refFile.put(file);
+                    subFile.on("state_changed", () => {}, (err) => { alert(err) }, () => {
+                        subFile.snapshot.ref.getDownloadURL().then(url => {
+                            firebase.firestore().collection("Libro").doc(id).update({
+                                FileURL: url
+                            }).then(respuesta => {
+                                alert("Se registró correctamente");
+                            }).catch(err => {
+                                alert(err);
+                            })
+                        })
+                    })
+                }
             } else {
                 alert("Se registró correctamente");
             }
@@ -60,4 +81,8 @@ function guardarLibro() {
     } else {
 
     }
+}
+
+function cerrarPoppup() {
+    document.getElementById("btnCancelar").click();
 }
