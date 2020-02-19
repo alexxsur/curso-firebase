@@ -1,6 +1,55 @@
 window.onload = function() {
     this.verAutenticacion();
-    console.log('LIBRO');
+    // Solo aquellos cuyo bhabilitado es 1
+    firebase.firestore().collection("Libro").where("bhabilitado", "==", 1)
+        .onSnapshot(res => {
+            listarLibros(res);
+        });
+}
+
+function listarLibros(res) {
+    var contenido = "<table class='table mt-2'";
+    contenido += "<thead>";
+
+    contenido += "<tr>";
+
+    contenido += "<th>Id</th>";
+    contenido += "<th>Imagen</th>";
+    contenido += "<th>Nombre Libro</th>";
+    contenido += "<th>Fecha Publicación</th>";
+    contenido += "<th>Nº Pag</th>";
+    contenido += "<th>Operaciones</th>";
+
+    contenido += "</tr>";
+
+    contenido += "</thead>";
+
+    contenido += "<tbody>";
+
+
+    res.forEach(rpta => {
+
+        var fila = rpta.data();
+        contenido += "<tr>";
+
+        contenido += "<td>" + rpta.id + "</td>";
+        contenido += "<td> <img width='100' height = '100' src = '" + fila.photoURL + "'/> </td>";
+        contenido += "<td>" + fila.nombre + "</td>";
+        contenido += "<td>" + fila.fechaPublicacion + "</td>";
+        contenido += "<td>" + fila.numeroPaginas + "</td>";
+        contenido += "<td>";
+        contenido += "<input type='button' value='Editar' onclick='abrirModal(\"" + rpta.id + "\")' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal'>";
+        contenido += " <input type='button' value='Eliminar' onclick='Eliminar(\"" + rpta.id + "\")' class='btn btn-danger'>";
+        contenido += "</td>";
+
+        contenido += "</tr>";
+
+    });
+
+    contenido += "</tbody>";
+
+    contenido += "</table>";
+    document.getElementById("divLibro").innerHTML = contenido;
 }
 
 function subirImage(archivo) {
