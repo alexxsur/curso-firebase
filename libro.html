@@ -71,6 +71,8 @@
                             <input type="text" readonly id="txtIdLibro" class="form-control" />
                             <label>Nombre Libro:</label>
                             <input type="text" id="txtNombre" class="form-control" />
+                            <label>Tipo Libro:</label>
+                            <select id="cboTipoLibro" class="form-control"> </select>
                             <label>Número de páginas:</label>
                             <input type="number" id="txtNumeroPaginas" class="form-control" />
                             <label>Cantidad total de Libros:</label>
@@ -81,7 +83,7 @@
                             <label class="d-block">Subir Archibo en PDF</label>
                             <iframe id="iframePreview" src="" width="200" height="200"></iframe>
                             <input type="file" id="file" accept="application/pdf" onchange="subirArchivo(this)" />
-
+                            <input type="button" id="btnDescargar" onclick="DescargarLibro();" value="Descargar" />
 
                             <div id="alertaErrorCrearLibro" class="alert alert-danger" role="alert" style="display: none;">
                             </div>

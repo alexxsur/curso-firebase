@@ -5,6 +5,20 @@ window.onload = function() {
         .onSnapshot(res => {
             listarLibros(res);
         });
+    listarTipoLibroCombo();
+}
+
+function listarTipoLibroCombo() {
+    contenido = "";
+    firebase.firestore().collection("TipoLibro").where("bhabilitado", "==", "1")
+        .onSnapshot(res => {
+            contenido += "<option value=''>--Seleccione--</option>";
+            res.forEach(rpta => {
+                var fila = rpta.data();
+                contenido += "<option value='" + rpta.id + "'>" + fila.nombre + "</option>";
+            });
+            document.getElementById("cboTipoLibro").innerHTML = contenido;
+        });
 }
 
 function listarLibros(res) {
@@ -73,6 +87,7 @@ function subirArchivo(archivo) {
 function guardarLibro() {
     var idLibro = document.getElementById("txtIdLibro").value;
     var nombre = document.getElementById("txtNombre").value;
+    var idTipoLibro = document.getElementById("cboTipoLibro").value;
     var numeroPaginas = document.getElementById("txtNumeroPaginas").value;
     var cantidadTotal = document.getElementById("txtCantidadTotal").value;
     var img = document.getElementById("fileImage").files[0];
@@ -83,10 +98,11 @@ function guardarLibro() {
             nombre,
             numeroPaginas: numeroPaginas * 1,
             cantidadTotal: cantidadTotal * 1,
+            idTipoLibro,
             bhabilitado: 1
         }).then(res => {
             var id = res.id;
-            if (img != undefined && img != null && file != undefined && file != null) {
+            if (img != undefined && img != null || file != undefined && file != null) {
                 // Imagen
                 if (img != undefined && img != null) {
                     var refImg = firebase.storage().ref("libroImg/" + id + "/" + img.name);
@@ -128,10 +144,98 @@ function guardarLibro() {
             alert(err);
         })
     } else {
+        // Editar
+        firebase.firestore().collection("Libro").doc(idLibro).update({
+            nombre,
+            numeroPaginas: numeroPaginas * 1,
+            cantidadTotal: cantidadTotal * 1,
+            idTipoLibro,
+            bhabilitado: 1
+        }).then(res => {
+            var id = idLibro;
+            if (img != undefined && img != null || file != undefined && file != null) {
+                // Imagen
+                if (img != undefined && img != null) {
+                    var refImg = firebase.storage().ref("libroImg/" + id + "/" + img.name);
+                    var subImg = refImg.put(img);
+                    subImg.on("state_changed", () => {}, (err) => { alert(err) }, () => {
+                        subImg.snapshot.ref.getDownloadURL().then(url => {
+                            firebase.firestore().collection("Libro").doc(id).update({
+                                photoURL: url
+                            }).then(respuesta => {
+                                alert("Se registró correctamente");
+                            }).catch(err => {
+                                alert(err);
+                            })
+                        })
+                    })
+                }
 
+                // PDF
+
+                if (file != undefined && file != null) {
+                    var refFile = firebase.storage().ref("libroFile/" + id + "/" + file.name);
+                    var subFile = refFile.put(file);
+                    subFile.on("state_changed", () => {}, (err) => { alert(err) }, () => {
+                        subFile.snapshot.ref.getDownloadURL().then(url => {
+                            firebase.firestore().collection("Libro").doc(id).update({
+                                FileURL: url
+                            }).then(respuesta => {
+                                alert("Se registró correctamente");
+                            }).catch(err => {
+                                alert(err);
+                            })
+                        })
+                    })
+                }
+            } else {
+                alert("Se editó correctamente");
+            }
+        }).catch(err => {
+            alert(err);
+        })
     }
 }
 
 function cerrarPoppup() {
     document.getElementById("btnCancelar").click();
+}
+
+function DescargarLibro() {
+    var a = document.createElement("a");
+    a.href = urlArchivo;
+    a.target = "_blank";
+    a.click();
+}
+
+var urlArchivo;
+
+function abrirModal(id) {
+    // limpiar();
+    if (id == 0) {
+        document.getElementById("lblTitulo").innerHTML = "Agregando Libro";
+    } else {
+        document.getElementById("lblTitulo").innerHTML = "Editando Libro";
+        firebase.firestore().collection("Libro").doc(id).get().then(res => {
+            // Obtuvimos el ID
+            document.getElementById("txtIdLibro").value = id;
+            // Vamos a base de datos
+            document.getElementById("txtNombre").value = res.data().nombre;
+            document.getElementById("cboTipoLibro").value = res.data().idTipoLibro;
+            document.getElementById("txtNumeroPaginas").value = res.data().numeroPaginas;
+            document.getElementById("txtCantidadTotal").value = res.data().cantidadTotal;
+            document.getElementById("imgFotoLibro").src = res.data().photoURL;
+            document.getElementById("iframePreview").src = res.data().FileURL;
+            urlArchivo = res.data().FileURL;
+
+            if (res.data().FileURL != null && res.data().FileURL != undefined) {
+                document.getElementById("btnDescargar").style.display = "inline-block";
+            } else {
+                document.getElementById("btnDescargar").style.display = "none";
+            }
+
+        }).catch(err => {
+            alert(err);
+        })
+    }
 }
