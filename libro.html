@@ -68,21 +68,21 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label>Id Libro:</label>
-                            <input type="text" readonly id="txtIdLibro" class="form-control" />
+                            <input type="text" readonly id="txtIdLibro" class="form-control limpiar" />
                             <label>Nombre Libro:</label>
-                            <input type="text" id="txtNombre" class="form-control" />
+                            <input type="text" id="txtNombre" class="form-control limpiar" />
                             <label>Tipo Libro:</label>
-                            <select id="cboTipoLibro" class="form-control"> </select>
+                            <select id="cboTipoLibro" class="form-control limpiar"> </select>
                             <label>Número de páginas:</label>
-                            <input type="number" id="txtNumeroPaginas" class="form-control" />
+                            <input type="number" id="txtNumeroPaginas" class="form-control limpiar" />
                             <label>Cantidad total de Libros:</label>
-                            <input type="number" id="txtCantidadTotal" class="form-control" />
+                            <input type="number" id="txtCantidadTotal" class="form-control limpiar" />
                             <label>Foto libro:</label>
                             <img id="imgFotoLibro" width="200" height="200" class="d-block" style="border:1px">
-                            <input type="file" id="fileImage" accept="image/*" onchange="subirImage(this)" />
+                            <input type="file" class="limpiar" id="fileImage" accept="image/*" onchange="subirImage(this)" />
                             <label class="d-block">Subir Archibo en PDF</label>
                             <iframe id="iframePreview" src="" width="200" height="200"></iframe>
-                            <input type="file" id="file" accept="application/pdf" onchange="subirArchivo(this)" />
+                            <input type="file" class="limpiar" id="file" accept="application/pdf" onchange="subirArchivo(this)" />
                             <input type="button" id="btnDescargar" onclick="DescargarLibro();" value="Descargar" />
 
                             <div id="alertaErrorCrearLibro" class="alert alert-danger" role="alert" style="display: none;">

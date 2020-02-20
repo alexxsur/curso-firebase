@@ -73,3 +73,13 @@
           }
       })
   }
+
+  function LimpiarDatos() {
+      // class Limpiar
+
+      var controles = document.getElementsByClassName("limpiar");
+      var ncontroles = controles.length;
+      for (var i = 0; i < ncontroles; i++) {
+          controles[i].value = "";
+      }
+  }

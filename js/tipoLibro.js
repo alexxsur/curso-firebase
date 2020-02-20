@@ -81,9 +81,11 @@ function Eliminar(id) {
 function limpiar() {
     document.getElementById("alertaErrorRegistro").style.display = "none";
     document.getElementById("alertaErrorRegistro").innerHTML = "";
-    document.getElementById("txtIdTipoLibro").value = "";
-    document.getElementById("txtNombre").value = "";
-    document.getElementById("txtDescripcion").value = "";
+
+    LimpiarDatos();
+    // document.getElementById("txtIdTipoLibro").value = "";
+    // document.getElementById("txtNombre").value = "";
+    // document.getElementById("txtDescripcion").value = "";
 }
 
 function crearTipoLibro() {

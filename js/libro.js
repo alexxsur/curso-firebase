@@ -211,7 +211,10 @@ function DescargarLibro() {
 var urlArchivo;
 
 function abrirModal(id) {
-    // limpiar();
+    LimpiarDatos();
+    document.getElementById("imgFotoLibro").src = "";
+    document.getElementById("iframePreview").src = "";
+
     if (id == 0) {
         document.getElementById("lblTitulo").innerHTML = "Agregando Libro";
     } else {
@@ -234,6 +237,18 @@ function abrirModal(id) {
                 document.getElementById("btnDescargar").style.display = "none";
             }
 
+        }).catch(err => {
+            alert(err);
+        })
+    }
+}
+
+function Eliminar(id) {
+    if (confirm("¿Deseas eliminar realmente?") == 1) {
+        firebase.firestore().collection("Libro").doc(id).update({
+            bhabilitado: 0
+        }).then(res => {
+            alert("Se eliminó correctamente");
         }).catch(err => {
             alert(err);
         })
